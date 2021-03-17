@@ -40,6 +40,91 @@ const qy = util.promisify(conexion.query).bind(conexion);
 
 // De aqui en mas se deben escribir las rutas de la API
 
+// Rutas de FERNANDO PIOLI MARTINEZ
+
+app.post("/libro", async (req, res) => {
+  try {
+    /*       // Desestructura el objeto
+      let { nombre, descripcion, categoria_id, persona_id } = req.body;
+  
+      // Verifica que las variables descripcion y persona_id no sean indefinidas (undefined)
+      // y que no sean espacios en blanco o vacios.
+      [descripcion, persona_id].forEach((element) => {
+        if (!element || element.replace(/ /g, "") === "") {
+          throw new Error("Faltan datos");
+        }
+      });
+      // Verifica que las variables nombre y categoria no sean indefinidas (undefined)
+      // y que no sean espacios en blanco o vacios.
+      [nombre, categoria_id].forEach((element) => {
+        if (!element || element.replace(/ /g, "") === "") {
+          throw new Error("Nombre y categoría son datos obligatorios");
+        }
+      });
+  
+      // Verifica que no se hayan enviado campos que no existen
+      let contador = 0;
+      [nombre, descripcion, categoria_id, persona_id].forEach((element) => {
+        if (!!element) {
+          contador++;
+        }
+      });
+      if (Object.keys(req.body).length > contador) {
+        throw new Error("Se enviaron uno o mas campos invalidos");
+      }
+  
+      // Transforma las variables a tipo string en mayusculas
+      [nombre, descripcion] = [nombre, descripcion].map((element) =>
+        element.toString().toUpperCase()
+      );
+  
+      // Verifica que el libro no este repetido
+      let query = "SELECT * FROM libro WHERE nombre = ?";
+      let queryRes = await qy(query, [nombre]);
+      if (queryRes.length > 0) {
+        throw new Error("Ese libro ya existe");
+      }
+  
+      // Verifica que la persona exista
+      query = "SELECT * FROM persona WHERE id = ?";
+      queryRes = await qy(query, [persona_id]);
+      if (queryRes.length == 0) {
+        throw new Error("No existe la persona indicada");
+      }
+  
+      // Carga el nuevo libro en la base de datos
+      query =
+        "INSERT INTO libro (nombre, descripcion, categoria_id, persona_id) VALUES (?, ?, ?, ?)";
+      queryRes = await qy(query, [nombre, descripcion, categoria_id, persona_id]);
+  
+      let id = queryRes.insertId;
+  
+      // Muestra el libro actualizado
+      query = "SELECT * FROM libro WHERE id = ?";
+      queryRes = await qy(query, id);
+  
+      res.status(200);
+      res.send(queryRes[0]); */
+  } catch (e) {
+    res.status(413).send({ Error: e.message });
+  }
+});
+
+app.get("/libro/:id", async (req, res) => {
+  try {
+    /*       const query = "SELECT * FROM libro WHERE id = ?";
+      const respuesta = await qy(query, [req.params.id]);
+      if (respuesta.length == 1) {
+        res.send(respuesta[0]);
+      } else {
+        res.status(404).send("No se encuentra ese libro");
+      } */
+  } catch (e) {
+    console.error(e.message);
+    res.status(413).send({ Error: e.message });
+  }
+});
+
 //FEDERICO TARTARI
 
 app.post("/categoria", async (req, res) => {
@@ -236,7 +321,7 @@ app.put("/persona/:id", async (req, res) => {
 // PATRICIO HERNAN MURIEGA
 app.delete("/libro/:id", async (req, res) => {
   try {
-    //Primero chequeo que el libro exista
+    /*    //Primero chequeo que el libro exista
     const id = req.params.id;
     let query = "SELECT * FROM libro WHERE id = ?";
     let respuesta = await qy(query, id);
@@ -256,7 +341,7 @@ app.delete("/libro/:id", async (req, res) => {
         respuesta = await qy(query, id);
         res.status(200).send("Se borro correctamente");
       }
-    }
+    } */
   } catch (e) {
     console.error(e.message);
     res.status(413).send({ Error: e.message });
@@ -265,7 +350,7 @@ app.delete("/libro/:id", async (req, res) => {
 
 app.put("/libro/devolver/:id", async (req, res) => {
   try {
-    //Compruebo que el libro exista
+    /*     //Compruebo que el libro exista
     let query = "SELECT * FROM libro WHERE id = ?";
     let respuesta = await qy(query, [req.params.id]);
     if (respuesta.length == 0) {
@@ -284,7 +369,7 @@ app.put("/libro/devolver/:id", async (req, res) => {
         respuesta = await qy(query, [req.params.id]);
         res.status(200).send("Se realizo la devolucion correctamente");
       }
-    }
+    } */
   } catch (e) {
     console.error(e.message);
     res.status(413).send({ Error: e.message });
@@ -358,7 +443,7 @@ app.get("/persona", async (req, res) => {
 app.get("/libro", async (req, res) => {
   try {
     // Muestra los libros
-    let query = "SELECT * FROM libro";
+    /* let query = "SELECT * FROM libro";
     let queryRes = await qy(query);
 
     if (queryRes.length === 0) {
@@ -369,8 +454,8 @@ app.get("/libro", async (req, res) => {
     if (queryRes.length > 1) {
       res.send(queryRes);
     } else {
-      res.send(queryRes[0]);
-    }
+      res.send(queryRes[0]); 
+    }*/
   } catch (e) {
     res.status(413).send({ Error: e.message });
   }
